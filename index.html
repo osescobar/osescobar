@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubbles Animation</title>
+    <style>
+        .bubbles {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #000; /* Fondo negro para visualizar mejor las burbujas */
+        }
+        .bubble {
+            position: absolute;
+            bottom: -6rem; /* Empieza justo fuera de la vista */
+            width: var(--size);
+            height: var(--size);
+            background: rgba(255, 255, 255, 0.6); /* Color blanco semitransparente */
+            border-radius: 50%;
+            animation: rise var(--time) linear infinite;
+            left: var(--position);
+            animation-delay: var(--delay);
+        }
+        @keyframes rise {
+            to {
+                transform: translateY(calc(-100vh - var(--distance)));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bubbles"></div>
+
+    <script>
+    //--------------------------- bucle de burbujas footer-------------------------------------//
+
+    const bubblesContainer = document.querySelector('.bubbles');
+    const bubbleCount = window.innerWidth < 768 ? 128 : 512; // Reduce el número de burbujas en pantallas pequeñas
+
+    for (let i = 0; i < bubbleCount; i++) {
+      const size = 0.5 + Math.random() * 2; // Reducido para mejorar el rendimiento
+      const distance = 6 + Math.random() * 4;
+      const position = -5 + Math.random() * 110;
+      const time = 2 + Math.random() * 2;
+      const delay = -1 * (2 + Math.random() * 2);
+
+      const bubble = document.createElement('div');
+      bubble.classList.add('bubble');
+      bubble.style.setProperty('--size', `${size}rem`);
+      bubble.style.setProperty('--distance', `${distance}rem`);
+      bubble.style.setProperty('--position', `${position}%`);
+      bubble.style.setProperty('--time', `${time}s`);
+      bubble.style.setProperty('--delay', `${delay}s`);
+
+      bubblesContainer.appendChild(bubble);
+    }
+    </script>
+</body>
+</html>
